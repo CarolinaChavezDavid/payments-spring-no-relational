@@ -1,5 +1,7 @@
 package com.payments.no.relational.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +15,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class Purchase {
+public class Purchase {
 
     @Id
     private String id;
@@ -31,8 +33,10 @@ public abstract class Purchase {
     private LocalDate purchaseDate = LocalDate.now();
 
     @DBRef
+    @JsonManagedReference
     private Card card;
 
     @DBRef
+    @JsonManagedReference
     private Promotion validPromotion;
 }

@@ -88,4 +88,21 @@ public class PromotionController {
         }
     }
 
+    // 7) Obtener el listado de las promociones disponibles de un local entre dos fechas
+    @GetMapping("/valid")
+    public List<Promotion> getValidPromotions(
+            @RequestParam String cuit_store,
+            @RequestParam String start_date,
+            @RequestParam String end_date) {
+        LocalDate validityStartDate = LocalDate.parse(start_date);
+        LocalDate validityEndDate = LocalDate.parse(end_date);
+        return promotionService.getValidPromotionsInRange(cuit_store, validityStartDate, validityEndDate);
+    }
+
+
+    // 9) Obtener la promocion mas utilizada en las compras registradas
+    @GetMapping("/most-used")
+    public Promotion getMostUsedPromotion() {
+        return promotionService.getMostUsedPromotion();
+    }
 }

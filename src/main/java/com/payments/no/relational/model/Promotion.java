@@ -1,5 +1,7 @@
 package com.payments.no.relational.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +16,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class Promotion {
+public class Promotion {
 
     @Id
     private String id;
@@ -34,6 +36,7 @@ public abstract class Promotion {
     private String comments;
 
     @DBRef
+    @JsonBackReference
     private Set<Purchase> purchases = new HashSet<>();
 
     public void addPurchase(Purchase purchase) {

@@ -1,5 +1,6 @@
 package com.payments.no.relational.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,6 +34,7 @@ public class Card {
     private Customer cardHolder;
 
     @DBRef(lazy = true)
+    @JsonBackReference
     private Set<Purchase> purchases = new HashSet<>();
 
     public void addPurchase(Purchase purchase) {

@@ -10,4 +10,6 @@ public interface PromotionService{
     Promotion savePromotion(String bankId, Promotion promo);
     Promotion extendPromotion(String promoId, LocalDate newDate);
     String removePromotionByCode (String promotionCode);
+    Promotion getMostUsedPromotion();
+    List<Promotion> getValidPromotionsInRange(String cuitStore, LocalDate validityStartDate, LocalDate validityEndDate);
 }

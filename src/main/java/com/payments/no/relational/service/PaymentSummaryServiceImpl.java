@@ -43,13 +43,12 @@ public class PaymentSummaryServiceImpl implements PaymentSummaryService {
                 .findSinglePaymentsByCardAndDate(cardId, month, year);
 
         float totalPrice = calculateTotalPrice(monthlyPayments, singlePayments);
-        LocalDate firstExpiration = LocalDate.of(year, month, 1).plusMonths(1);
+        LocalDate firstExpiration = LocalDate.of(Integer.parseInt(year),Integer.parseInt(month), 1).plusMonths(1);
         LocalDate secondExpiration = firstExpiration.withDayOfMonth(15);
-
         PaymentSummary summary = new PaymentSummary();
         summary.setCode(UUID.randomUUID().toString());
-        summary.setSummaryMonth(String.valueOf(month));
-        summary.setSummaryYear(String.valueOf(year));
+        summary.setSummaryMonth(month);
+        summary.setSummaryYear(year);
         summary.setFirstExpiration(firstExpiration);
         summary.setSecondExpiration(secondExpiration);
         summary.setSurchargePercentage(5.0f);

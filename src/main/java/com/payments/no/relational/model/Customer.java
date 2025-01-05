@@ -1,5 +1,6 @@
 package com.payments.no.relational.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -9,7 +10,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-@Document(collection = "customer")
+@Document(collection = "customers")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -38,5 +39,6 @@ public class Customer {
     private LocalDate entryDate;
 
     @DBRef
+    @JsonBackReference
     private Set<Bank> banks = new HashSet<>();
 }

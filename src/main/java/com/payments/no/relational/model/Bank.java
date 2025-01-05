@@ -1,5 +1,6 @@
 package com.payments.no.relational.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -8,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.HashSet;
 import java.util.Set;
 
-@Document(collection = "bank")
+@Document(collection = "banks")
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
@@ -31,6 +32,7 @@ public class Bank {
     private String telephone;
 
     @DBRef
+    @JsonManagedReference
     private Set<Customer> members = new HashSet<>();
 
     @DBRef

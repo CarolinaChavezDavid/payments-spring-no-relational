@@ -1,5 +1,6 @@
 package com.payments.no.relational.controller;
 
+import com.payments.no.relational.dto.BankCustomerDTO;
 import com.payments.no.relational.model.Bank;
 import com.payments.no.relational.service.BankService;
 import org.slf4j.Logger;
@@ -42,6 +43,17 @@ public class BankController {
             return ResponseEntity.ok(updatedBank);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @GetMapping("/members")
+    public ResponseEntity<List<BankCustomerDTO>> getCustomersAmountPerBank() {
+        try {
+            List<BankCustomerDTO> bankCustomers = bankService.getCustomersAmountPerBank();
+            return ResponseEntity.ok().body(bankCustomers);
+        } catch (Exception e) {
+            logger.error("Error getting bank's clients", e);
+            return ResponseEntity.badRequest().build();
         }
     }
 }

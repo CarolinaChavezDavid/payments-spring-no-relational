@@ -1,5 +1,6 @@
 package com.payments.no.relational.service;
 
+import com.payments.no.relational.dto.BankCustomerDTO;
 import com.payments.no.relational.exception.PaymentsException;
 import com.payments.no.relational.model.Bank;
 import com.payments.no.relational.model.Customer;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BankServiceImpl implements BankService {
@@ -65,5 +67,23 @@ public class BankServiceImpl implements BankService {
         } else {
             throw new PaymentsException("There was an error adding the client to the bank");
         }
+    }
+
+    @Override
+    public List<BankCustomerDTO> getCustomersAmountPerBank() {
+        return bankRepository.findAll().stream().map(bank -> {
+            BankCustomerDTO dto = new BankCustomerDTO();
+            String bankId = bank.getId();
+
+            Bank currentBank =  bankRepository
+                    .findById(bankId)
+                    .orElseThrow(() -> new PaymentsException("Bank with ID " +bankId + " not found"));
+
+            int members = currentBank.getMembers().size();
+            dto.setBankId(bankId);
+            dto.setBank_name(bank.getName());
+            dto.setMembers_amount(members);
+            return dto;
+        }).collect(Collectors.toList());
     }
 }

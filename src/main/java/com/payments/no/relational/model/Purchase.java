@@ -32,10 +32,8 @@ public class Purchase {
     private LocalDate purchaseDate = LocalDate.now();
 
     @DBRef
-    @JsonManagedReference
     private Card card;
 
     @DBRef
-    @JsonManagedReference
     private Promotion validPromotion;
 }

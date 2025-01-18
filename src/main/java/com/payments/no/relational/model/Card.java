@@ -34,7 +34,6 @@ public class Card {
     private Customer cardHolder;
 
     @DBRef(lazy = true)
-    @JsonBackReference
     private Set<Purchase> purchases = new HashSet<>();
 
     public void addPurchase(Purchase purchase) {

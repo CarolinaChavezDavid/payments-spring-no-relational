@@ -39,6 +39,5 @@ public class Customer {
     private LocalDate entryDate;
 
     @DBRef
-    @JsonBackReference
     private Set<Bank> banks = new HashSet<>();
 }

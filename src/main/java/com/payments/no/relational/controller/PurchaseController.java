@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/purchasing")
+@RequestMapping("/purchases")
 public class PurchaseController {
 
     Logger logger = LoggerFactory.getLogger(PurchaseController.class);

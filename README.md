@@ -15,8 +15,8 @@ El proyecto incluye múltiples endpoints para realizar operaciones CRUD sobre la
 
 ## Modelos
 ### 🏦 Bank
-La colección 'Banks' almacena la información sobre bancons incluyendo su nomre, identificación  (CUIT), direccion y telefono, manteniendo las siguientes relaciones:
-  * **Customers (members):** Representando los miembos asociados al banco. Un banco puede tener multiples clientes, representado por @DBref en la coleccion de memebers. Esto ayuda a trackear los clientes asociados con el banco.
+La colección 'Banks' almacena la información sobre bancons incluyendo su nombre, identificación  (CUIT), direccion y telefono, manteniendo las siguientes relaciones:
+  * **Customers (members):** Representando los miembos asociados al banco. Un banco puede tener multiples clientes, representado por @DBref en la coleccion de members. Esto ayuda a trackear los clientes asociados con el banco.
   * **Promotions:** Representando las promociones ofertradas por el banco. Un banco puede ofertar multiples promociones, la lista de promociones esta linkeado por @DBref
 
   > http://localhost:8080/banking/67799820bc9ed1ecde0ce4b9

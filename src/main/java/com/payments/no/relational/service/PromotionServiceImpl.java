@@ -1,7 +1,9 @@
 package com.payments.no.relational.service;
 
+import com.payments.no.relational.dto.FinancingDTO;
 import com.payments.no.relational.exception.PaymentsException;
 import com.payments.no.relational.model.Bank;
+import com.payments.no.relational.model.Financing;
 import com.payments.no.relational.model.Promotion;
 import com.payments.no.relational.model.Purchase;
 import com.payments.no.relational.repository.BankRepository;
@@ -9,6 +11,7 @@ import com.payments.no.relational.repository.PromotionRepository;
 import com.payments.no.relational.repository.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -36,20 +39,33 @@ public class PromotionServiceImpl implements PromotionService {
         return promotionRepository.findAll();
     }
 
+    // 1) Agregar una nueva promocion de tipo Financing a un banco dado
+    @Transactional
     @Override
-    public Promotion savePromotion(String bankId, Promotion promo) {
+    public Promotion saveFinancing(String bankId, FinancingDTO promo) {
         Optional<Bank> bankOptional= bankRepository.findById(bankId);
          if (bankOptional.isPresent()) {
              Bank bank = bankOptional.get();
-             Promotion newPromo = promotionRepository.save(promo);
-             bank.addPromo(newPromo);
+             Financing newPromo = new Financing();
+             newPromo.setCode(promo.getCode());
+             newPromo.setPromotionTitle(promo.getPromotionTitle());
+             newPromo.setNameStore(promo.getNameStore());
+             newPromo.setCuitStore(promo.getCuitStore());
+             newPromo.setValidityStartDate(promo.getValidityStartDate());
+             newPromo.setValidityEndDate(promo.getValidityEndDate());
+             newPromo.setComments(promo.getComments());
+             newPromo.setNumberOfQuotas(promo.getNumberOfQuotas());
+             newPromo.setInterest(promo.getInterest());
+             Financing savedPromo = promotionRepository.save(newPromo);
+             bank.getPromotions().add(savedPromo);
              bankRepository.save(bank);
-             return newPromo;
+             return savedPromo;
         } else {
              throw new PaymentsException("There is no bank with the Id given");
          }
     }
 
+    // 2) Extender el tiempo de validez de una promocion
     @Override
      public Promotion extendPromotion(String promoId, LocalDate newDate) {
         Optional<Promotion> optionalPromo = promotionRepository.findById(promoId);

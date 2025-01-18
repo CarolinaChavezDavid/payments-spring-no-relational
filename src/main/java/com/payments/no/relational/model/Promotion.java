@@ -36,7 +36,6 @@ public class Promotion {
     private String comments;
 
     @DBRef
-    @JsonBackReference
     private Set<Purchase> purchases = new HashSet<>();
 
     public void addPurchase(Purchase purchase) {

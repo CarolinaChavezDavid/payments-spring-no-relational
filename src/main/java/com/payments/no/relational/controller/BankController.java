@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/banking")
+@RequestMapping("/banks")
 public class BankController {
 
     Logger logger = LoggerFactory.getLogger(BankController.class);
@@ -46,6 +46,7 @@ public class BankController {
         }
     }
 
+    // 11) Obtener un listado con el numero de clientes de cada banco
     @GetMapping("/members")
     public ResponseEntity<List<BankCustomerDTO>> getCustomersAmountPerBank() {
         try {

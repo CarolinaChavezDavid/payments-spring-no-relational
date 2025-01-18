@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/paymentSummary")
+@RequestMapping("/payment-summaries")
 public class PaymentSummaryController {
 
     Logger logger = LoggerFactory.getLogger(PaymentSummaryController.class);

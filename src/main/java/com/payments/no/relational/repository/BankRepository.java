@@ -9,6 +9,6 @@ import java.util.Set;
 
 public interface BankRepository  extends MongoRepository<Bank, String> {
 
-    @Query(value = "{ '_id': ?0 }", fields = "{ 'members': 1 }")
-    Set<Customer> findMembersByBankId(String bankId);
+//    @Query(value = "{ '_id': ?0 }", fields = "{ 'members': 1 }")
+//    Set<Customer> findMembersByBankId(String bankId);
 }

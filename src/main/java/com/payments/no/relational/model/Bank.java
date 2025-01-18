@@ -32,7 +32,6 @@ public class Bank {
     private String telephone;
 
     @DBRef
-    @JsonManagedReference
     private Set<Customer> members = new HashSet<>();
 
     @DBRef

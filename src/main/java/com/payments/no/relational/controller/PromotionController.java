@@ -1,5 +1,6 @@
 package com.payments.no.relational.controller;
 
+import com.payments.no.relational.dto.FinancingDTO;
 import com.payments.no.relational.model.Discount;
 import com.payments.no.relational.model.Financing;
 import com.payments.no.relational.model.Promotion;
@@ -31,28 +32,28 @@ public class PromotionController {
         return ResponseEntity.ok(promotions);
     }
 
-    @PostMapping("/discount")
-    public ResponseEntity<Promotion> createDiscountPromotion(
-            @RequestParam String bankId,
-            @RequestBody Discount promotion
-    ) {
-        try {
-            Promotion savedPromotion = promotionService.savePromotion(bankId, promotion);
-            return ResponseEntity.ok().body(savedPromotion);
-        } catch (Exception e) {
-            logger.error("There was a error saving the promotion information", e);
-            return ResponseEntity.badRequest().build();
-        }
-    }
+//    @PostMapping("/discount")
+//    public ResponseEntity<Promotion> createDiscountPromotion(
+//            @RequestParam String bankId,
+//            @RequestBody Discount promotion
+//    ) {
+//        try {
+//            Promotion savedPromotion = promotionService.savePromotion(bankId, promotion);
+//            return ResponseEntity.ok().body(savedPromotion);
+//        } catch (Exception e) {
+//            logger.error("There was a error saving the promotion information", e);
+//            return ResponseEntity.badRequest().build();
+//        }
+//    }
 
     // 1) Agregar una promocion de tipo Financing a un banco dado
     @PostMapping("/financing")
     public ResponseEntity<Promotion> createFinancingPromotion(
             @RequestParam String bankId,
-            @RequestBody Financing promotion
+            @RequestBody FinancingDTO promotion
     ) {
         try {
-            Promotion savedPromotion = promotionService.savePromotion(bankId, promotion);
+            Promotion savedPromotion = promotionService.saveFinancing(bankId, promotion);
             return ResponseEntity.ok().body(savedPromotion);
         } catch (Exception e) {
             logger.error("There was a error saving the promotion information", e);

@@ -23,6 +23,13 @@ public class PurchaseMonthlyPayments extends Purchase {
     @DBRef
     private Set<Quota> quotas = new HashSet<>();
 
+    public PurchaseMonthlyPayments(String paymentVoucher, String store, String cuitStore, float amount, float finalAmount,
+                                 float interest, int numberOfQuotas){
+        super(paymentVoucher, store, cuitStore, amount, finalAmount);
+        this.interest = interest;
+        this.numberOfQuotas = numberOfQuotas;
+    }
+
     public void addQuota(Quota quota) {
         this.quotas.add(quota);
     }

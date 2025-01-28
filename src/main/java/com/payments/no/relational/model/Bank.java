@@ -3,6 +3,7 @@ package com.payments.no.relational.model;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,7 +11,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Document(collection = "banks")
-@Data
+//@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
 @NoArgsConstructor
@@ -19,6 +22,7 @@ public class Bank {
     @Id
     private String id;
 
+    @Indexed(unique = true)
     @NonNull
     private String name;
 

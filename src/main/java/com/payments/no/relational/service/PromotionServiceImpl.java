@@ -83,6 +83,7 @@ public class PromotionServiceImpl implements PromotionService {
         }
     }
 
+    @Transactional
     @Override
     public String removePromotionByCode(String promotionCode) {
         Optional<Promotion> promotionOptional = promotionRepository.findByCode(promotionCode);

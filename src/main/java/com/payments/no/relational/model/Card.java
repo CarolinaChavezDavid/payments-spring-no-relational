@@ -1,10 +1,9 @@
 package com.payments.no.relational.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -15,22 +14,35 @@ import java.util.Set;
 @Document(collection = "cards")
 @Data
 @NoArgsConstructor
+@RequiredArgsConstructor
 @AllArgsConstructor
 public class Card {
 
     @Id
     private String id;
 
+    @Indexed(unique = true)
+    @NonNull
     private String cardNumber;
+
+    @NonNull
     private String cvv;
+
+    @NonNull
     private String cardHolderNameInCard;
+
+    @NonNull
     private LocalDate sinceDate;
+
+    @NonNull
     private LocalDate expirationDate;
 
     @DBRef(lazy = true)
+    @NonNull
     private Bank bank;
 
     @DBRef(lazy = true)
+    @NonNull
     private Customer cardHolder;
 
     @DBRef(lazy = true)

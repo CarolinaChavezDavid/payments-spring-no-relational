@@ -32,6 +32,7 @@ public class PaymentSummaryServiceImpl implements PaymentSummaryService {
         this.paymentSummaryRepository = paymentSummaryRepository;
     }
 
+    // 3) Generar el total de pago de un mes dado, informando las compras correspondientes
     @Override
     public PaymentSummary getPaymentSummary(String cardId, String month, String year) {
         Card card = cardRepository.findById(cardId)

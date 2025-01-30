@@ -1,6 +1,7 @@
 package com.payments.no.relational.service;
 
 import com.payments.no.relational.dto.MonthlyPaymentPurchaseDTO;
+import com.payments.no.relational.dto.PurchaseProjection;
 import com.payments.no.relational.dto.SinglePurchaseDTO;
 import com.payments.no.relational.model.Purchase;
 import com.payments.no.relational.model.PurchaseMonthlyPayments;

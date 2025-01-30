@@ -1,5 +1,6 @@
 package com.payments.no.relational.repository;
 
+import com.payments.no.relational.dto.PromotionProjection;
 import com.payments.no.relational.model.Promotion;
 import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -21,6 +22,6 @@ public interface PromotionRepository extends MongoRepository<Promotion, String> 
     List<Promotion> findMostUsedPromotion();
 
     @Query("{ 'cuitStore': ?0, 'validityStartDate': { $gte: ?1 }, 'validityEndDate': { $lte: ?2 } }")
-    List<Promotion> findValidPromotionsInRange(String cuitStore, LocalDate validityStartDate, LocalDate validityEndDate);
+    List<PromotionProjection> findValidPromotionsInRange(String cuitStore, LocalDate validityStartDate, LocalDate validityEndDate);
 
 }

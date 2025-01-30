@@ -1,6 +1,7 @@
 package com.payments.no.relational.controller;
 
 import com.payments.no.relational.dto.FinancingDTO;
+import com.payments.no.relational.dto.PromotionProjection;
 import com.payments.no.relational.model.Discount;
 import com.payments.no.relational.model.Financing;
 import com.payments.no.relational.model.Promotion;
@@ -91,7 +92,7 @@ public class PromotionController {
 
     // 7) Obtener el listado de las promociones disponibles de un local entre dos fechas
     @GetMapping("/valid")
-    public List<Promotion> getValidPromotions(
+    public List<PromotionProjection> getValidPromotions(
             @RequestParam String cuit_store,
             @RequestParam String start_date,
             @RequestParam String end_date) {

@@ -134,8 +134,8 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         // 7) Obtener el listado de las promociones disponibles de un local entre dos fechas
         Promotion promo2 = new Financing("F002","Back-to-School Financing","Store A","20-12345678-1", LocalDate.of(2024,2,1), LocalDate.of(2024,11,1),2,0.0f);
         Promotion promo3 = new Financing("F003","Back-to-School Financing","Store B","20-12345678-1", LocalDate.of(2024,2,1), LocalDate.of(2024,11,1),2,0.0f);
-        Promotion promo4 = new Discount("D002","Travel Discount","Store B","20-12345678-2", LocalDate.of(2024,2,1), LocalDate.of(2024,11,1),30.0f,100.0f,false);
-        Promotion promo5 = new Discount("D003","Travel Discount","Store B","20-12345678-2", LocalDate.of(2025,2,1), LocalDate.of(2025,11,1),30.0f,100.0f,false);
+        Promotion promo4 = new Discount("D003","Travel Discount","Store B","20-12345678-2", LocalDate.of(2024,2,1), LocalDate.of(2024,11,1),30.0f,100.0f,false);
+        Promotion promo5 = new Discount("D004","Travel Discount","Store B","20-12345678-2", LocalDate.of(2025,2,1), LocalDate.of(2025,11,1),30.0f,100.0f,false);
         promotionRepository.saveAll(List.of(promo2,promo3,promo4,promo5));
 
         // 8) Obtener la informacion de las 10 tarjetas con mas compras.
@@ -212,16 +212,18 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 
 
         // 9) Obtener la promocion mas utilizada en las compras registradas
-        Promotion promo6 = new Discount("D004","Travel Discount","Store A","20-12345678-1", LocalDate.of(2025,1,1), LocalDate.of(2025,12,31),10.0f,100.0f,false);
-        promotionRepository.save(promo6);
+        Discount promo7 = new Discount("D005","Travel Discount","Store A","20-12345678-1", LocalDate.of(2025,1,1), LocalDate.of(2025,12,31),10.0f,100.0f,false);
+        promotionRepository.save(promo7);
         // Assign to 3 purchases
-        purchase24.setValidPromotion(promo6);promo6.addPurchase(purchase24);
-        purchase25.setValidPromotion(promo6);promo6.addPurchase(purchase25);
-        purchase26.setValidPromotion(promo6);promo6.addPurchase(purchase26);
-        purchase27.setValidPromotion(promo6);promo6.addPurchase(purchase27);
-        purchase28.setValidPromotion(promo6);promo6.addPurchase(purchase28);
+        purchase24.setValidPromotion(promo7);promo7.addPurchase(purchase24);
+        purchase25.setValidPromotion(promo7);promo7.addPurchase(purchase25);
+        purchase26.setValidPromotion(promo7);promo7.addPurchase(purchase26);
+        purchase27.setValidPromotion(promo7);promo7.addPurchase(purchase27);
+        purchase28.setValidPromotion(promo7);promo7.addPurchase(purchase28);
         purchaseRepository.saveAll(List.of(purchase24,purchase25,purchase26, purchase27));
-        promotionRepository.save(promo6);
+        System.out.println("BBBBBBBBB");
+        System.out.println(promo7.getPurchases());
+        promotionRepository.save(promo7);
 
 
         // 10) Obtener el nombre y el CUIT del local que mas facturo en cierto mes

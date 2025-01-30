@@ -1,6 +1,7 @@
 package com.payments.no.relational.service;
 
 import com.payments.no.relational.dto.FinancingDTO;
+import com.payments.no.relational.dto.PromotionProjection;
 import com.payments.no.relational.exception.PaymentsException;
 import com.payments.no.relational.model.Bank;
 import com.payments.no.relational.model.Financing;
@@ -108,7 +109,7 @@ public class PromotionServiceImpl implements PromotionService {
     }
 
     @Override
-    public List<Promotion> getValidPromotionsInRange(String cuitStore, LocalDate validityStartDate, LocalDate validityEndDate) {
+    public List<PromotionProjection> getValidPromotionsInRange(String cuitStore, LocalDate validityStartDate, LocalDate validityEndDate) {
         //return promotionRepository.findByCuitStoreAndValidityStartDateLessThanEqualAndValidityEndDateGreaterThanEqual(cuitStore, validityStartDate, validityEndDate);
         return promotionRepository.findValidPromotionsInRange(cuitStore, validityStartDate, validityEndDate);
     }

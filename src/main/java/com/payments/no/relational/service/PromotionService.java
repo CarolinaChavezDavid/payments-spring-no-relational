@@ -1,6 +1,7 @@
 package com.payments.no.relational.service;
 
 import com.payments.no.relational.dto.FinancingDTO;
+import com.payments.no.relational.dto.PromotionProjection;
 import com.payments.no.relational.model.Promotion;
 
 import java.time.LocalDate;
@@ -12,5 +13,5 @@ public interface PromotionService{
     Promotion extendPromotion(String promoId, LocalDate newDate);
     String removePromotionByCode (String promotionCode);
     Promotion getMostUsedPromotion();
-    List<Promotion> getValidPromotionsInRange(String cuitStore, LocalDate validityStartDate, LocalDate validityEndDate);
+    List<PromotionProjection> getValidPromotionsInRange(String cuitStore, LocalDate validityStartDate, LocalDate validityEndDate);
 }

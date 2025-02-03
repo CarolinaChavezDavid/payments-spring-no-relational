@@ -21,6 +21,7 @@ public class PurchaseMonthlyPayments extends Purchase {
     private int numberOfQuotas;
 
     @DBRef
+    @JsonManagedReference
     private Set<Quota> quotas = new HashSet<>();
 
     public PurchaseMonthlyPayments(String paymentVoucher, String store, String cuitStore, float amount, float finalAmount,

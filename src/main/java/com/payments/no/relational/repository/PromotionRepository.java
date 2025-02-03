@@ -15,7 +15,7 @@ public interface PromotionRepository extends MongoRepository<Promotion, String> 
 
     @Aggregation(pipeline = {
             "{ $lookup: { from: 'purchases', localField: '_id', foreignField: 'validPromotion.$id', as: 'purchases' } }",
-            "{ $project: { _id: 1, code: 1, promotionTitle: 1, nameStore: 1, purchasesCount: { $size: '$purchases' } } }",
+            "{ $project: { _id: 1, code: 1, promotionTitle: 1, nameStore: 1, cuitStore: 1, validityStartDate: 1, validityEndDate:1 comments: 1,purchasesCount: { $size: '$purchases' } } }",
             "{ $sort: { purchasesCount: -1 } }",
             "{ $limit: 1 }"
     })

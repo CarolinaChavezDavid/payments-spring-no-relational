@@ -78,8 +78,8 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         purchaseRepository.saveAll(List.of(purchase1,purchase2,purchase3,purchase4));
         cardRepository.save(card1);
 
-        Quota quota1 = new Quota(1,50.0f,"January","2024");
-        Quota quota2 = new Quota(1,50.0f,"February","2024");
+        Quota quota1 = new Quota(1,50.0f,"2","2025");
+        Quota quota2 = new Quota(1,50.0f,"3","2026");
         quotaRepository.saveAll(List.of(quota1, quota2));
         PurchaseMonthlyPayments purchase5 = new PurchaseMonthlyPayments("V005","Store A","20-12345678-1",100.0f,100.0f,0.0f,2);
         purchaseRepository.save(purchase5);
@@ -91,8 +91,8 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         cardRepository.save(card1);
         purchaseRepository.save(purchase5);
 
-        Quota quota3 = new Quota(1,50.0f,"January","2024");
-        Quota quota4 = new Quota(1,50.0f,"February","2024");
+        Quota quota3 = new Quota(1,50.0f,"2","2025");
+        Quota quota4 = new Quota(1,50.0f,"3","2025");
         quotaRepository.save(quota3); quotaRepository.save(quota4);
         PurchaseMonthlyPayments purchase6 = new PurchaseMonthlyPayments("V006","Store A","20-12345678-1",100.0f,100.0f,0.0f,2);
         purchaseRepository.save(purchase6);
@@ -103,16 +103,16 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         cardRepository.save(card1);
 
         // 4) Obtener el listado de tarjetas que vencen en los siguientes 30 dias
-        Card card2 = new Card("2345678923456789","123","John Doe2",LocalDate.of(2025,1,1), LocalDate.now().minusDays(10), bank1, customer1);
-        Card card3 = new Card("3456789234567891","346","John Doe3",LocalDate.of(2025,1,1), LocalDate.now().minusDays(20), bank1, customer1);
-        Card card4 = new Card("4567892345678910","767","John Doe4",LocalDate.of(2025,1,1), LocalDate.now().minusDays(40), bank1, customer1);
+        Card card2 = new Card("2345678923456789","123","John Doe2",LocalDate.of(2025,1,1), LocalDate.now().plusDays(10), bank1, customer1);
+        Card card3 = new Card("3456789234567891","346","John Doe3",LocalDate.of(2025,1,1), LocalDate.now().plusDays(20), bank1, customer1);
+        Card card4 = new Card("4567892345678910","767","John Doe4",LocalDate.of(2025,1,1), LocalDate.now().plusDays(40), bank1, customer1);
         cardRepository.saveAll(List.of(card2,card3,card4));
 
 
         // 5) Obtener la informacion de una compra, incluyendo el listado de cuotas si esta posee
-        Quota quota6 = new Quota(1,100.0f,"January","2024");
-        Quota quota7 = new Quota(2,100.0f,"February","2024");
-        Quota quota8 = new Quota(3,100.0f,"March","2024");
+        Quota quota6 = new Quota(1,100.0f,"1","2024");
+        Quota quota7 = new Quota(2,100.0f,"2","2024");
+        Quota quota8 = new Quota(3,100.0f,"3","2024");
         quotaRepository.saveAll(List.of(quota6,quota7,quota8));
         PurchaseMonthlyPayments purchase7 = new PurchaseMonthlyPayments("V007","Store A","20-12345678-1",100.0f,100.0f,0.0f,3);
         purchaseRepository.save(purchase7);
@@ -120,13 +120,13 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         purchase7.addQuota(quota7);
         purchase7.addQuota(quota8);
         purchaseRepository.save(purchase7);
-        Purchase purchase8 = new PurchaseSinglePayment("V005","Store A","20-12345678-1",100.0f,100.0f,0.0f);
+        Purchase purchase8 = new PurchaseSinglePayment("V008","Store A","20-12345678-1",100.0f,100.0f,0.0f);
         purchaseRepository.save(purchase8);
 
         // 6) Eliminar una promocion a traves de su codigo
         // tener en cuenta que esta puede haber sido aplicada a alguna compra
         Promotion promo1 = new Discount("D002","Travel Discount","Store B","20-12345678-2", LocalDate.of(2024,1,1), LocalDate.of(2024,12,1),30.0f,100.0f,false);
-        Purchase purchase9 = new PurchaseSinglePayment("V032","Store A","20-12345678-1",100.0f,70.0f,0.0f);
+        Purchase purchase9 = new PurchaseSinglePayment("V009","Store A","20-12345678-1",100.0f,70.0f,0.0f);
         promotionRepository.save(promo1); purchaseRepository.save(purchase9);
         promo1.addPurchase(purchase9);
         promotionRepository.save(promo1);
@@ -139,43 +139,43 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         promotionRepository.saveAll(List.of(promo2,promo3,promo4,promo5));
 
         // 8) Obtener la informacion de las 10 tarjetas con mas compras.
-        Purchase purchase10 = new PurchaseSinglePayment("V006","Store A","20-12345678-1",100.0f,100.0f,0.0f);
-        Purchase purchase11 = new PurchaseSinglePayment("V007","Store A","20-12345678-1",100.0f,100.0f,0.0f);
+        Purchase purchase10 = new PurchaseSinglePayment("V010","Store A","20-12345678-1",100.0f,100.0f,0.0f);
+        Purchase purchase11 = new PurchaseSinglePayment("V011","Store A","20-12345678-1",100.0f,100.0f,0.0f);
         Card card5 = new Card("1234583812345678","123","John Doe5",LocalDate.of(2025,1,1), LocalDate.of(2025,12,31), bank1, customer1);
 
-        Purchase purchase12 = new PurchaseSinglePayment("V008","Store A","20-12345678-1",100.0f,100.0f,0.0f);
-        Purchase purchase13 = new PurchaseSinglePayment("V009","Store A","20-12345678-1",100.0f,100.0f,0.0f);
+        Purchase purchase12 = new PurchaseSinglePayment("V012","Store A","20-12345678-1",100.0f,100.0f,0.0f);
+        Purchase purchase13 = new PurchaseSinglePayment("V013","Store A","20-12345678-1",100.0f,100.0f,0.0f);
         Card card6 = new Card("123451562345678","123","John Doe6",LocalDate.of(2025,1,1), LocalDate.of(2025,12,31), bank1, customer1);
 
-        Purchase purchase14 = new PurchaseSinglePayment("V010","Store A","20-12345678-1",100.0f,100.0f,0.0f);
-        Purchase purchase15 = new PurchaseSinglePayment("V011","Store A","20-12345678-1",100.0f,100.0f,0.0f);
+        Purchase purchase14 = new PurchaseSinglePayment("V014","Store A","20-12345678-1",100.0f,100.0f,0.0f);
+        Purchase purchase15 = new PurchaseSinglePayment("V015","Store A","20-12345678-1",100.0f,100.0f,0.0f);
         Card card7 = new Card("1234565412345678","123","John Doe7",LocalDate.of(2025,1,1), LocalDate.of(2025,12,31), bank1, customer1);
 
-        Purchase purchase16 = new PurchaseSinglePayment("V012","Store A","20-12345678-1",100.0f,100.0f,0.0f);
-        Purchase purchase17 = new PurchaseSinglePayment("V013","Store A","20-12345678-1",100.0f,100.0f,0.0f);
+        Purchase purchase16 = new PurchaseSinglePayment("V016","Store A","20-12345678-1",100.0f,100.0f,0.0f);
+        Purchase purchase17 = new PurchaseSinglePayment("V017","Store A","20-12345678-1",100.0f,100.0f,0.0f);
         Card card8 = new Card("123456842345678","123","John Doe8",LocalDate.of(2025,1,1), LocalDate.of(2025,12,31), bank1, customer1);
 
-        Purchase purchase18 = new PurchaseSinglePayment("V014","Store A","20-12345678-1",100.0f,100.0f,0.0f);
-        Purchase purchase19 = new PurchaseSinglePayment("V015","Store A","20-12345678-1",100.0f,100.0f,0.0f);
+        Purchase purchase18 = new PurchaseSinglePayment("V018","Store A","20-12345678-1",100.0f,100.0f,0.0f);
+        Purchase purchase19 = new PurchaseSinglePayment("V019","Store A","20-12345678-1",100.0f,100.0f,0.0f);
         Card card9 = new Card("1234567816655678","123","John Doe9",LocalDate.of(2025,1,1), LocalDate.of(2025,12,31), bank1, customer1);
 
-        Purchase purchase20 = new PurchaseSinglePayment("V016","Store A","20-12345678-1",100.0f,100.0f,0.0f);
-        Purchase purchase21 = new PurchaseSinglePayment("V017","Store A","20-12345678-1",100.0f,100.0f,0.0f);
+        Purchase purchase20 = new PurchaseSinglePayment("V020","Store A","20-12345678-1",100.0f,100.0f,0.0f);
+        Purchase purchase21 = new PurchaseSinglePayment("V021","Store A","20-12345678-1",100.0f,100.0f,0.0f);
         Card card10 = new Card("1234565932345678","123","John Doe10",LocalDate.of(2025,1,1), LocalDate.of(2025,12,31), bank1, customer1);
 
-        Purchase purchase22 = new PurchaseSinglePayment("V018","Store A","20-12345678-1",100.0f,100.0f,0.0f);
-        Purchase purchase23 = new PurchaseSinglePayment("V019","Store A","20-12345678-1",100.0f,100.0f,0.0f);
+        Purchase purchase22 = new PurchaseSinglePayment("V022","Store A","20-12345678-1",100.0f,100.0f,0.0f);
+        Purchase purchase23 = new PurchaseSinglePayment("V023","Store A","20-12345678-1",100.0f,100.0f,0.0f);
         Card card11 = new Card("1234567684345678","123","John Doe11",LocalDate.of(2025,1,1), LocalDate.of(2025,12,31), bank1, customer1);
 
-        Purchase purchase24 = new PurchaseSinglePayment("V020","Store A","20-12345678-1",100.0f,90.0f,10.0f);
-        Purchase purchase25 = new PurchaseSinglePayment("V021","Store A","20-12345678-1",100.0f,90.0f,10.0f);
+        Purchase purchase24 = new PurchaseSinglePayment("V024","Store A","20-12345678-1",100.0f,90.0f,10.0f);
+        Purchase purchase25 = new PurchaseSinglePayment("V025","Store A","20-12345678-1",100.0f,90.0f,10.0f);
         Card card12 = new Card("1234567294345678","123","John Doe12",LocalDate.of(2025,1,1), LocalDate.of(2025,12,31), bank1, customer1);
 
-        Purchase purchase26 = new PurchaseSinglePayment("V022","Store A","20-12345678-1",100.0f,90.0f,10.0f);
-        Purchase purchase27 = new PurchaseSinglePayment("V023","Store A","20-12345678-1",100.0f,90.0f,10.0f);
+        Purchase purchase26 = new PurchaseSinglePayment("V026","Store A","20-12345678-1",100.0f,90.0f,10.0f);
+        Purchase purchase27 = new PurchaseSinglePayment("V027","Store A","20-12345678-1",100.0f,90.0f,10.0f);
         Card card13 = new Card("1234567466345678","123","John Doe13",LocalDate.of(2025,1,1), LocalDate.of(2025,12,31), bank1, customer1);
 
-        Purchase purchase28 = new PurchaseSinglePayment("V024","Store A","20-12345678-1",100.0f,90.0f,10.0f);
+        Purchase purchase28 = new PurchaseSinglePayment("V028","Store A","20-12345678-1",100.0f,90.0f,10.0f);
         Card card14 = new Card("1234522212345678","123","John Doe14",LocalDate.of(2025,1,1), LocalDate.of(2025,12,31), bank1, customer1);
 
         purchaseRepository.saveAll(List.of(purchase10, purchase11, purchase12, purchase13, purchase14, purchase15,
@@ -227,13 +227,13 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 
 
         // 10) Obtener el nombre y el CUIT del local que mas facturo en cierto mes
-        Purchase purchase29 = new PurchaseSinglePayment("V025","Store B","20-12345678-2",100.0f,100.0f,0.0f);
-        Purchase purchase30 = new PurchaseSinglePayment("V026","Store B","20-12345678-2",200.0f,200.0f,0.0f);
-        Purchase purchase31 = new PurchaseSinglePayment("V027","Store C","20-12345678-3",100.0f,100.0f,0.0f);
-        Purchase purchase32 = new PurchaseSinglePayment("V028","Store C","20-12345678-3",200.0f,200.0f,0.0f);
-        Purchase purchase33 = new PurchaseSinglePayment("V029","Store C","20-12345678-3",300.0f,300.0f,0.0f);
-        Purchase purchase34 = new PurchaseSinglePayment("V030","Store D","20-12345678-4",400.0f,400.0f,0.0f);
-        Purchase purchase35 = new PurchaseSinglePayment("V031","Store D","20-12345678-4",500.0f,500.0f,0.0f);
+        Purchase purchase29 = new PurchaseSinglePayment("V029","Store B","20-12345678-2",100.0f,100.0f,0.0f);
+        Purchase purchase30 = new PurchaseSinglePayment("V030","Store B","20-12345678-2",200.0f,200.0f,0.0f);
+        Purchase purchase31 = new PurchaseSinglePayment("V031","Store C","20-12345678-3",100.0f,100.0f,0.0f);
+        Purchase purchase32 = new PurchaseSinglePayment("V032","Store C","20-12345678-3",200.0f,200.0f,0.0f);
+        Purchase purchase33 = new PurchaseSinglePayment("V033","Store C","20-12345678-3",300.0f,300.0f,0.0f);
+        Purchase purchase34 = new PurchaseSinglePayment("V034","Store D","20-12345678-4",400.0f,400.0f,0.0f);
+        Purchase purchase35 = new PurchaseSinglePayment("V035","Store D","20-12345678-4",500.0f,500.0f,0.0f);
         purchaseRepository.saveAll(List.of(purchase29, purchase30, purchase31,
                 purchase32, purchase33, purchase34, purchase35));
 

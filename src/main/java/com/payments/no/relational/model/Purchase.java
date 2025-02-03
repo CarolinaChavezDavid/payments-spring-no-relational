@@ -1,5 +1,6 @@
 package com.payments.no.relational.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -37,9 +38,11 @@ public class Purchase {
     private LocalDate purchaseDate = LocalDate.now();
 
     @DBRef
+    @JsonManagedReference
     private Card card;
 
     @DBRef
+    @JsonManagedReference
     private Promotion validPromotion;
 
 }

@@ -4,6 +4,7 @@ package com.payments.no.relational.controller;
 import com.payments.no.relational.dto.MonthlyPaymentPurchaseDTO;
 import com.payments.no.relational.dto.PurchaseProjection;
 import com.payments.no.relational.dto.SinglePurchaseDTO;
+import com.payments.no.relational.dto.TopStoreDTO;
 import com.payments.no.relational.model.Purchase;
 import com.payments.no.relational.model.PurchaseMonthlyPayments;
 import com.payments.no.relational.model.PurchaseSinglePayment;
@@ -14,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/purchases")
@@ -30,9 +30,9 @@ public class PurchaseController {
 
     // 5) Obtener la informacion de una compra, incluyendo el listado de cuotas si esta posee
     @GetMapping("/{id}")
-    public ResponseEntity<Purchase> getPurchaseById(@PathVariable String id) {
+    public ResponseEntity<PurchaseProjection> getPurchaseById(@PathVariable String id) {
         try {
-            Purchase purchase = purchaseService.getPurchaseById(id);
+            PurchaseProjection purchase = purchaseService.getPurchaseById(id);
             return ResponseEntity.ok(purchase);
         }catch (Exception e){
             logger.error("There was a error getting the purchase information", e);
@@ -70,10 +70,11 @@ public class PurchaseController {
 
     // 10) Obtener el nombre y el CUIT del local que mas facturo en cierto mes
     @GetMapping("/top-income-store")
-    public Map<String, Object> getTopIncomeStore(
-            @RequestParam String month,
-            @RequestParam String year
+    public TopStoreDTO getTopIncomeStore(
+            @RequestParam int month,
+            @RequestParam int year
     ) {
-        return purchaseService.getTopStore(month, year);
+        TopStoreDTO res = purchaseService.getTopStore(month, year);
+        return res;
     }
 }

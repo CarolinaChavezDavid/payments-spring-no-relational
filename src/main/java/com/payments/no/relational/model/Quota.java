@@ -27,5 +27,6 @@ public class Quota {
     private String yearr;
 
     @DBRef
+    @JsonBackReference
     private Purchase purchase;
 }

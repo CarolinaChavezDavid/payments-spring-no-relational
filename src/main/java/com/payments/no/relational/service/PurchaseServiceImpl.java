@@ -3,6 +3,7 @@ package com.payments.no.relational.service;
 import com.payments.no.relational.dto.MonthlyPaymentPurchaseDTO;
 import com.payments.no.relational.dto.PurchaseProjection;
 import com.payments.no.relational.dto.SinglePurchaseDTO;
+import com.payments.no.relational.dto.TopStoreDTO;
 import com.payments.no.relational.exception.PaymentsException;
 import com.payments.no.relational.model.*;
 import com.payments.no.relational.repository.CardRepository;
@@ -38,8 +39,8 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public Purchase getPurchaseById(String id) {
-        Optional<Purchase> purchaseOptional = purchaseRepository.findById(id);
+    public PurchaseProjection getPurchaseById(String id) {
+        Optional<PurchaseProjection> purchaseOptional = purchaseRepository.findByIdWithSelectedFields(id);
         if(purchaseOptional.isPresent()) {
             return purchaseOptional.get();
         } else {
@@ -158,7 +159,10 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public Map<String, Object> getTopStore(String month, String year) {
-        return purchaseRepository.findTopStoreByMonthAndYear(month, year);
+    public TopStoreDTO getTopStore(int month, int year) {
+        TopStoreDTO res = purchaseRepository.findTopStoreByMonthAndYear(month, year);
+        System.out.println("AAAAA");
+        System.out.println(res);
+        return res;
     }
 }

@@ -1,15 +1,25 @@
 package com.payments.no.relational.repository;
 
+import com.payments.no.relational.dto.PurchaseProjection;
+import com.payments.no.relational.dto.TopStoreDTO;
 import com.payments.no.relational.model.Promotion;
 import com.payments.no.relational.model.Purchase;
 import com.payments.no.relational.model.PurchaseSinglePayment;
 import com.payments.no.relational.model.Quota;
 import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
+
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public interface PurchaseRepository extends MongoRepository<Purchase, String> {
+    Purchase findByPaymentVoucher(String purchase_payment_voucher);
+
+    @Query(value="{'_id':?0}", fields = "{'paymentVoucher':1,'store':1,'cuitStore':1,'amount':1,'finalAmount':1,'purchaseDate':1}")
+    Optional<PurchaseProjection> findByIdWithSelectedFields(String id);
+
     List<Purchase> findByValidPromotion(Promotion promotion);
 
     @Aggregation(pipeline = {
@@ -34,5 +44,5 @@ public interface PurchaseRepository extends MongoRepository<Purchase, String> {
             "{ $limit: 1 }",
             "{ $project: { _id: 0, store: '$_id.store', cuitStore: '$_id.cuitStore', totalAmount: 1 } }"
     })
-    Map<String, Object> findTopStoreByMonthAndYear(String month, String year);
+    TopStoreDTO findTopStoreByMonthAndYear(int month, int year);
 }

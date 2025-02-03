@@ -1,6 +1,7 @@
 package com.payments.no.relational.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -39,13 +40,16 @@ public class Card {
 
     @DBRef(lazy = true)
     @NonNull
+    @JsonIgnore
     private Bank bank;
 
     @DBRef(lazy = true)
     @NonNull
+    @JsonIgnore
     private Customer cardHolder;
 
     @DBRef(lazy = true)
+    @JsonBackReference
     private Set<Purchase> purchases = new HashSet<>();
 
     public void addPurchase(Purchase purchase) {

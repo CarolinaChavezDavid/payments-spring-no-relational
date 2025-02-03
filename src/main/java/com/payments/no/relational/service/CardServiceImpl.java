@@ -61,11 +61,11 @@ public class CardServiceImpl implements CardService{
         LocalDate currentDate = LocalDate.now();
         LocalDate nextMonth = currentDate.plusMonths(1);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE;
-        String currentDateStr = currentDate.format(formatter);
-        String nextMonthStr = nextMonth.format(formatter);
+//        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE;
+//        String currentDateStr = currentDate.format(formatter);
+//        String nextMonthStr = nextMonth.format(formatter);
 
-        return cardRepository.findByExpirationDateBetween(currentDateStr, nextMonthStr);
+        return cardRepository.findByExpirationDateBetween(currentDate, nextMonth);
     }
 
     @Override

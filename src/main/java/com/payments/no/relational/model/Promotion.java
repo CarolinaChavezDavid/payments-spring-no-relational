@@ -48,6 +48,7 @@ public class Promotion {
     private String comments;
 
     @DBRef
+    @JsonBackReference
     private List<Purchase> purchases = new ArrayList<>();
 
     public void addPurchase(Purchase purchase) {

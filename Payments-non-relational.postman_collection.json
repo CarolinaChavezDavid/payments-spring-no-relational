@@ -1,0 +1,371 @@
+{
+	"info": {
+		"_postman_id": "64aa5acd-c2f9-4ae9-a590-c4bd9bef3793",
+		"name": "Payments-non-relational",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27249426",
+		"_collection_link": "https://cloudy-capsule-99776.postman.co/workspace/Team-Workspace~1899ec8f-24d7-4ca6-8daa-0eff5d03605e/collection/40503936-64aa5acd-c2f9-4ae9-a590-c4bd9bef3793?action=share&source=collection_link&creator=27249426"
+	},
+	"item": [
+		{
+			"name": "preTask",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let r=pm.response.json();",
+							"",
+							"pm.environment.set(\"bank_id\",r.bank_id);",
+							"pm.environment.set(\"promotion_id\",r.promotion_id);",
+							"pm.environment.set(\"card_id\",r.card_id);",
+							"pm.environment.set(\"promotion_to_delete_id\",r.promotion_to_delete_id);",
+							"pm.environment.set(\"purchase_id\",r.purchase_id);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/pretask?bank_name=BBVA&promotion_code=F001&card_number=1234567812345678&promotion_delete_code=D002&purchase_payment_voucher=V007",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pretask"
+					],
+					"query": [
+						{
+							"key": "bank_name",
+							"value": "BBVA"
+						},
+						{
+							"key": "promotion_code",
+							"value": "F001"
+						},
+						{
+							"key": "card_number",
+							"value": "1234567812345678"
+						},
+						{
+							"key": "promotion_delete_code",
+							"value": "D002"
+						},
+						{
+							"key": "purchase_payment_voucher",
+							"value": "V007"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1_saveFinancingPromotion",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"code\": \"FIN011\",\n    \"promotionTitle\": \"Summer Financing Offer\",\n    \"nameStore\": \"Store A\",\n    \"cuitStore\": \"20-12345678-9\",\n    \"validityStartDate\": \"2023-01-15\",\n    \"validityEndDate\": \"2024-12-31\",\n    \"comments\": \"Summer special promotion\",\n    \"numberOfQuotas\": 12,\n    \"interest\": 15.00\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/promotions/financing?bankId={{bank_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"promotions",
+						"financing"
+					],
+					"query": [
+						{
+							"key": "bankId",
+							"value": "{{bank_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2_extendPromoValidity",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"code\": \"FIN001\",\n    \"promotionTitle\": \"Summer Financing Offer\",\n    \"nameStore\": \"Store A\",\n    \"cuitStore\": \"20-12345678-9\",\n    \"validityStartDate\": \"2023-01-15\",\n    \"validityEndDate\": \"2024-12-31\",\n    \"comments\": \"Summer special promotion\",\n    \"numberOfQuotas\": 12,\n    \"interest\": 15.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/promotions/{{promotion_id}}/validity?extendDate=2025-12-31",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"promotions",
+						"{{promotion_id}}",
+						"validity"
+					],
+					"query": [
+						{
+							"key": "extendDate",
+							"value": "2025-12-31"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3_getPaymentSummary",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/payment-summaries?cardId={{card_id}}&month=2&year=2025",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"payment-summaries"
+					],
+					"query": [
+						{
+							"key": "cardId",
+							"value": "{{card_id}}"
+						},
+						{
+							"key": "month",
+							"value": "2"
+						},
+						{
+							"key": "year",
+							"value": "2025"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4_getCloseToExpireCards",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cards/expiring",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cards",
+						"expiring"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5_getPurchaseById",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"paymentVoucher\": \"PV1249\",\n    \"store\": \"Patitas\",\n    \"cuitStore\": \"12345678901\",\n    \"amount\": 37800.0,\n    \"finalAmount\": 0.0,\n    \"cardId\": \"1\",\n    \"validPromotionCode\": \"DIS001\",\n    \"storeDiscount\": 0.1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/purchases/{{purchase_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"purchases",
+						"{{purchase_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6_deletePromotionByCode",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/promotions/{{promotion_to_delete_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"promotions",
+						"{{promotion_to_delete_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7_getValidPromotions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/promotions/valid?cuit_store=20-12345678-1&start_date=2024-01-01&end_date=2024-12-31",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"promotions",
+						"valid"
+					],
+					"query": [
+						{
+							"key": "cuit_store",
+							"value": "20-12345678-1"
+						},
+						{
+							"key": "start_date",
+							"value": "2024-01-01"
+						},
+						{
+							"key": "end_date",
+							"value": "2024-12-31"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8_getTop10",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cards/top10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cards",
+						"top10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9_getMostUsedPromotion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/promotions/most-used",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"promotions",
+						"most-used"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10_getTopIncomeStore",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/purchases/top-income-store?month=2&year=2025",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"purchases",
+						"top-income-store"
+					],
+					"query": [
+						{
+							"key": "month",
+							"value": "2"
+						},
+						{
+							"key": "year",
+							"value": "2025"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "11_getCustomersPerBank",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/banks/members",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"banks",
+						"members"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -28,9 +28,9 @@ La colección 'Banks' almacena la información sobre bancons incluyendo su nombr
 El modelo `Customer` representa a los clientes y dentro de la base de datos y estable una relación con la entidad `Bank`.
 * **Relaciones**
     - **Customer - Bank**
-    * **Type:** Many-to-Many (Una promoción puede sesr usada en multiples compras).
-    * El campo `banks` es un Set<Bank> que utiliza la anotación `@DBRef` para referenciar documentos de la colección banks.
-    * La anotación `@JsonBackReference` se utiliza para evitar referencias circulares durante la serialización JSON. Esto es necesario ya que el modelo Bank tiene una referencia  `@JsonManagedReference` de vuelta al modelo Customer.
+      * **Type:** Many-to-Many (Un cliente puede estar asociado a multiples bancos y un banco puede tener multiples clientes).
+      * El campo `banks` es un Set<Bank> que utiliza la anotación `@DBRef` para referenciar documentos de la colección banks.
+      * La anotación `@JsonBackReference` se utiliza para evitar referencias circulares durante la serialización JSON. Esto es necesario ya que el modelo Bank tiene una referencia  `@JsonManagedReference` de vuelta al modelo Customer.
 
 ```
 {
@@ -55,14 +55,58 @@ El modelo `Customer` representa a los clientes y dentro de la base de datos y es
 ```
 
 ### 💳 Card
+El modelo `Card` representa a las tarjetas y dentro de la base de datos y estable una relación con las entidades `Bank`, `Customer` y `Purchase`.
+* **Relaciones**
+    - **Card - Bank**
+      * **Type:** Many-to-One (Un banco puede emitir muchas tarjetas).
+      * El campo `bank` es una `@DBRef(lazy = true)` a la entidad `Bank`, y solo se  carga la entidad banco cuando se accede a ella.
+      * Se utiliza `@JsonIgnore` para que no se incluya la información del banco asociado en el JSON de respuesta.
+    - **Card - Customer**
+      * **Type:** Many-to-One (Muchas tarjetas pueden pertenecer a un cliente).
+      * El campo `cardHolder` es una `@DBRef(lazy = true)` a la entidad `Customer`, y solo se  carga la entidad del cliente cuando se accede a ella.
+      * Se utiliza `@JsonIgnore` para que no se incluya la información del cliente asociado en el JSON de respuesta.
+   - **Card - Purchase**
+      * **Type:** One-to-Many (Una tarjeta puede ser usada en muchas compras).
+      * El campo `purchases` es una `@DBRef(lazy = true)` a la entidad `Purchase`, y solo se  carga la lista de compras cuando se accede a ella.
+      * Se utiliza `@JsonBackReference` para evitar las dependencias cirulares derante la serialización del JSON, y la entitdad `Purchase` use la anotacion `JsonManagedReference` en su referencia a la entidad `Card`
+
+```
+{
+  "_id": "652f1a2b3c4d5e6f7a8b9c0d",
+  "cardNumber": "1234567890123456",
+  "cvv": "123",
+  "cardHolderNameInCard": "Susana Peréz",
+  "sinceDate": "2020-01-01",
+  "expirationDate": "2025-01-01",
+  "bank": {
+    "$ref": "banks",
+    "$id": "652f1a2b3c4d5e6f7a8b9c0e"
+  },
+  "cardHolder": {
+    "$ref": "customers",
+    "$id": "652f1a2b3c4d5e6f7a8b9c0f"
+  },
+  "purchases": [
+    {
+      "$ref": "purchases",
+      "$id": "652f1a2b3c4d5e6f7a8b9c10"
+    },
+    {
+      "$ref": "purchases",
+      "$id": "652f1a2b3c4d5e6f7a8b9c11"
+    }
+  ]
+}
+```
 
 ### 💸 Promotion
 El modelo `Promotion` representa una oferta y esta diseñada como la clase base de dos subtipos: `Finincing` y `Discount`.
 * **Relaciones**
     - **Promotion - Purchase**
-    * **Type:** One-to-Many (Una promoción puede sesr usada en multiples compras).
-    * El campo `purchases`es  una List<Purchase> con una `@DBRef` a la entidad `Purchase`
-    * Se utiliza `@JsonBackReference` para evitar referencias circulares durante la serialización en JSON.
+      * **Type:** One-to-Many (Una promoción puede sesr usada en multiples compras).
+      * El campo `purchases`es  una List<Purchase> con una `@DBRef` a la entidad `Purchase`
+      * Se utiliza `@JsonBackReference` para evitar referencias circulares durante la serialización en JSON.
+   
 ```
 {
   "_id": "652f1a2b3c4d5e6f7a8b9c1f",

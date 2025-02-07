@@ -9,7 +9,17 @@ El proyecto incluye múltiples endpoints para realizar operaciones CRUD sobre la
 ![image](https://github.com/user-attachments/assets/7c01866d-dcae-4286-98f9-c33eb6ee3396)
 
 * **Aplicación de Spring** Para ejecutar la aplicación se deberá clonar o descargar este proyecto, se debe contar con Java 17 para ejecutar la aplicacion.
-* **Prueba de endpoints** Para probar los endpoints que muestran los mapeos se compartira la collecion *Payments* utilizdas en postman.
+* 🧪 **Prueba de endpoints** Para probar los endpoints que muestran los mapeos de los modelos, en la base del proyecto se encuentra el [Payments-non-relational.postman_collection.json](Payments-non-relational.postman_collection.json), este archivo es la collección de Postman con los enpoints correspondientes a las pruebas descritas en el trabajo final, para obtener los IDs necesarios para ejecutar las pruebas se debe ejecutar incialmente el **preTask** endpoint que entrega IDs de objetos en la base de datos de cada una de las colleciones.
+
+```
+{
+    "bank_id": "67a6888505f1fd13ee216dab",
+    "promotion_id": "67a6888505f1fd13ee216dac",
+    "card_id": "67a6888505f1fd13ee216daf",
+    "promotion_to_delete_id": "67a6888605f1fd13ee216dc2",
+    "purchase_id": "67a6888605f1fd13ee216dc0"
+}
+```
 
 ## Modelos
 

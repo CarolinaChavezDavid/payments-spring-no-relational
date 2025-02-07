@@ -2,8 +2,6 @@ package com.payments.no.relational.controller;
 
 import com.payments.no.relational.dto.FinancingDTO;
 import com.payments.no.relational.dto.PromotionProjection;
-import com.payments.no.relational.model.Discount;
-import com.payments.no.relational.model.Financing;
 import com.payments.no.relational.model.Promotion;
 import com.payments.no.relational.service.PromotionService;
 import org.slf4j.Logger;

@@ -25,6 +25,34 @@ La colección 'Banks' almacena la información sobre bancons incluyendo su nombr
 
 
 ### 🙆‍♀️ Customer
+El modelo `Customer` representa a los clientes y dentro de la base de datos y estable una relación con la entidad `Bank`.
+* **Relaciones**
+    - **Customer - Bank**
+    * **Type:** Many-to-Many (Una promoción puede sesr usada en multiples compras).
+    * El campo `banks` es un Set<Bank> que utiliza la anotación `@DBRef` para referenciar documentos de la colección banks.
+    * La anotación `@JsonBackReference` se utiliza para evitar referencias circulares durante la serialización JSON. Esto es necesario ya que el modelo Bank tiene una referencia  `@JsonManagedReference` de vuelta al modelo Customer.
+
+```
+{
+  "_id": "652f1a2b3c4d5e6f7a8b9c0f",
+  "completeName": "Juan Pérez",
+  "dni": "12345678",
+  "cuil": "20-12345678-9",
+  "address": "Calle Falsa 123",
+  "telephone": "555-1234",
+  "entryDate": "2020-01-01",
+  "banks": [
+    {
+      "$ref": "banks",
+      "$id": "652f1a2b3c4d5e6f7a8b9c0e"
+    },
+    {
+      "$ref": "banks",
+      "$id": "652f1a2b3c4d5e6f7a8b9c1e"
+    }
+  ]
+}
+```
 
 ### 💳 Card
 
@@ -78,7 +106,7 @@ El modelo `Purchase` representa un compra realizada por un cliente. Esta diseña
 {
   "_id": "652f1a2b3c4d5e6f7a8b9c10",
   "paymentVoucher": "VOUCHER123",
-  "store": "Example Store",
+  "store": "Patitas Store",
   "cuitStore": "30-12345678-9",
   "amount": 100.0,
   "finalAmount": 90.0,

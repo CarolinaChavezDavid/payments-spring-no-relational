@@ -30,3 +30,20 @@ La colección 'Banks' almacena la información sobre bancons incluyendo su nombr
 
 ### 💸 Promotion
 
+
+
+## Test
+1. Agregar promoción a banco
+   * `POST` **Endpoint:** `http://localhost:8080/promotions/financing?bankId={bank_id}`
+
+![1NoSQL](https://github.com/user-attachments/assets/03a6dbb6-4537-45cd-bdff-2b871bb046ee)
+
+2. Extender el tiempo de validez de una promoción
+   *  `PUT` **Endpoint:** `http://localhost:8080/promotions/{promotion_id}/validity?extendDate=2025-12-31`
+
+![2NoSql](https://github.com/user-attachments/assets/194382dc-9d22-4b82-aec8-f91e27dcd1c8)
+
+3.  Generar el total de pago de un mes dado, informando las compras correspondientes.
+   *  `GET` **Endpoint:** `http://localhost:8080/payment-summaries?cardId={card_id}&month=2&year=2025`
+     
+![03nosql](https://github.com/user-attachments/assets/5d214cc4-1179-436b-823d-a1c58a138a7c)

@@ -12,6 +12,12 @@ El proyecto incluye múltiples endpoints para realizar operaciones CRUD sobre la
 * **Prueba de endpoints** Para probar los endpoints que muestran los mapeos se compartira la collecion *Payments* utilizdas en postman.
 
 ## Modelos
+
+> 🧱 La mayoria de las relaciones dentro de la aplicación se manejan traves de referencias (`@DBRef`) y utilizan anotaciones de JSON para la serialización a la hora de generar las respuestas en los enpoints. Se realizó esta elección ya que `@DBRef` permite almacenar referencias a documentos en lugar de duplicar información, evitando redundancia y asegurando consistencia. Por ejemplo,  en lugar de almacenar los datos de un cliente en cada documento de un banco, se hace referencia a un único documento de cliente. Facilitando la creación de relaciones complejas (uno a muchos, muchos a muchos) y permite actualizar los documentos relacionados sin modificar cada instancia de la relación.
+
+En caso de las anotaciones, previenen las referencias circulares en relaciones bidireccionales, por ejemplo cuando un banco referencia clientes y un cliente referencia bancos, la serialización puede generar bucles infinitos. @JsonManagedReference define la parte "padre" y @JsonBackReference la parte "hija", evitando ciclos infinitos al serializar.
+
+
 ### 🏦 Bank
 El modelo `Bank` representa a los bancos y dentro de la base de datos establece relación con las entidades `Customer` y `Promotion`.
 * **Relaciones**

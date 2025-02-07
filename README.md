@@ -11,18 +11,47 @@ El proyecto incluye múltiples endpoints para realizar operaciones CRUD sobre la
 * **Aplicación de Spring** Para ejecutar la aplicación se deberá clonar o descargar este proyecto, se debe contar con Java 17 para ejecutar la aplicacion.
 * **Prueba de endpoints** Para probar los endpoints que muestran los mapeos se compartira la collecion *Payments* utilizdas en postman.
 
-<img width="1318" alt="image" src="https://github.com/user-attachments/assets/b5097fbb-e562-4bd8-96e9-83f41d13b41f" />
-
 ## Modelos
 ### 🏦 Bank
-La colección 'Banks' almacena la información sobre bancons incluyendo su nombre, identificación  (CUIT), direccion y telefono, manteniendo las siguientes relaciones:
-  * **Customers (members):** Representando los miembos asociados al banco. Un banco puede tener multiples clientes, representado por @DBref en la coleccion de members. Esto ayuda a trackear los clientes asociados con el banco.
-  * **Promotions:** Representando las promociones ofertradas por el banco. Un banco puede ofertar multiples promociones, la lista de promociones esta linkeado por @DBref
+El modelo `Bank` representa a los bancos y dentro de la base de datos establece relación con las entidades `Customer` y `Promotion`.
+* **Relaciones**
+    - **Bank - Customer**
+      * **Type:** Many-to-Many (Un banco puede tener multiples clientes y un cliente puede estar asociado a multiples bancos).
+      * El campo `members` es un Set<Customer> que utiliza la anotación `@DBRef` para referenciar documentos de la colección Customers.
+      * La anotación `@JsonManagedReference` se utiliza para evitar referencias circulares durante la serialización JSON. Esto es necesario ya que el modelo `Customer` tiene una referencia  `@JsonBackReference` de vuelta al modelo Bank.
+    - **Bank - Promotion**
+      * **Type:** Many-to-Many (Un banco puede ofertar multiples promociones y una promoción puede ser asociada a multiples bancos).
+      * El campo `promotions` es un Set<Promotion> que utiliza la anotación `@DBRef` para referenciar documentos de la colección Promotions.
 
-  > http://localhost:8080/banking/67799820bc9ed1ecde0ce4b9
-
-![image](https://github.com/user-attachments/assets/ec66b040-d940-430c-b9ef-339390425a98)
-
+```
+{
+  "_id": "652f1a2b3c4d5e6f7a8b9c0e",
+  "name": "Banco Argentina",
+  "cuit": "30-12345678-9",
+  "address": "456 San Martn",
+  "telephone": "555-5678",
+  "members": [
+    {
+      "$ref": "customers",
+      "$id": "652f1a2b3c4d5e6f7a8b9c0f"
+    },
+    {
+      "$ref": "customers",
+      "$id": "652f1a2b3c4d5e6f7a8b9c1f"
+    }
+  ],
+  "promotions": [
+    {
+      "$ref": "promotions",
+      "$id": "652f1a2b3c4d5e6f7a8b9c1f"
+    },
+    {
+      "$ref": "promotions",
+      "$id": "652f1a2b3c4d5e6f7a8b9c2f"
+    }
+  ]
+}
+```
 
 ### 🙆‍♀️ Customer
 El modelo `Customer` representa a los clientes y dentro de la base de datos y estable una relación con la entidad `Bank`.

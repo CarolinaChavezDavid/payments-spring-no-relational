@@ -29,6 +29,32 @@ La colección 'Banks' almacena la información sobre bancons incluyendo su nombr
 ### 💳 Card
 
 ### 💸 Promotion
+El modelo `Promotion` representa una oferta y esta diseñada como la clase base de dos subtipos: `Finincing` y `Discount`.
+* **Relaciones**
+    - **Promotion - Purchase**
+    * **Type:** One-to-Many (Una promoción puede sesr usada en multiples compras).
+    * El campo `purchases`es  una List<Purchase> con una `@DBRef` a la entidad `Purchase`
+    * Se utiliza `@JsonBackReference` para evitar referencias circulares durante la serialización en JSON.
+```
+{
+  "_id": "652f1a2b3c4d5e6f7a8b9c1f",
+  "code": "FINC123",
+  "promotionTitle": "12-meses financiación",
+  "nameStore": "Patitas store",
+  "cuitStore": "30-12345678-9",
+  "validityStartDate": "2023-10-01",
+  "validityEndDate": "2024-09-30",
+  "comments": "12 meses de financiación",
+  "numberOfQuotas": 12,
+  "interest": 10.0,
+  "purchases": [
+    {
+      "$ref": "purchases",
+      "$id": "652f1a2b3c4d5e6f7a8b9c10"
+    }
+  ]
+}
+```
 
 ### 💰 Purchase
 El modelo `Purchase` representa un compra realizada por un cliente. Esta diseñado como una clase base con dos subtipos: `PurchaseSinglePayment` y `PurchaseMonthlyPayments`.

@@ -30,7 +30,45 @@ La colección 'Banks' almacena la información sobre bancons incluyendo su nombr
 
 ### 💸 Promotion
 
-
+### 💰 Purchase
+El modelo `Purchase` representa un compra realizada por un cliente. Esta diseñado como una clase base con dos subtipos: `PurchaseSinglePayment` y `PurchaseMonthlyPayments`.
+ * **Relaciones**
+    - **Purchasae - Card**
+      * **Tipo:** Many-to-One (Muchas compras pueden realizarse con una misma tarjeta).
+      * El campo `card` es un `@DBRef` a la entidad Card.
+      * Se utiliza la anotación @JsonManagedReference `para gestionar la serialización de esta relación y evitar referencias circulares.
+    - **Purchase - Promotion**
+      * **Tipo** Many-to-One (Muchas compras pueden usar una misma promoción).
+      * El campo `validPromotion` es un `@DBRef` a la entidad `Promotion`.
+      * Se usa la anotación `@JsonManagedReference` para gestionar la serialización de esta relación.
+    - **PurchaseMonthlyPayments - Quota**
+      * **Tipo:** One-To-Many (Una compra puede tener muchas cuotas).
+      * Para esta relación, las cuotas no se almacenan como referencias (@DBRef) sino como un campo embebido (@Field("quotas")), lo que hace que las cuotas esten directamente dentro de `PurchaseMonthlyPayments` elmininando la necesidad de una relación externa, esta decisión fue tomada ya que simplifica el query y la lógica utilizada para crear el `PaymentsSummary`, mejorando la eficiencia de la consulta y teniendo una menor complejidad en la gestión de los datos
+   - **Quota - PurchaseMonthlyPayments**
+      * **Tipo:** Many-To_one (Muchas cuotas pueden pertenecer a una misma compra).
+      - El campo purchase en Quota es un @DBRef a la entidad Purchase.
+      - Se utiliza @JsonBackReference para evitar referencias circulares durante la serialización en JSON.
+```
+{
+  "_id": "652f1a2b3c4d5e6f7a8b9c10",
+  "paymentVoucher": "VOUCHER123",
+  "store": "Example Store",
+  "cuitStore": "30-12345678-9",
+  "amount": 100.0,
+  "finalAmount": 90.0,
+  "purchaseDate": "2023-10-01",
+  "card": {
+    "$ref": "cards",
+    "$id": "652f1a2b3c4d5e6f7a8b9c0d"
+  },
+  "validPromotion": {
+    "$ref": "promotions",
+    "$id": "652f1a2b3c4d5e6f7a8b9c1f"
+  },
+  "storeDiscount": 10.0,
+  "type": "PurchaseSinglePayment"
+}
+```
 
 ## Test
 1. Agregar promoción a banco

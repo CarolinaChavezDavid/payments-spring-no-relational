@@ -68,10 +68,10 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         bank1.addCustomer(customer1); customer1.addBank(bank1);
         customerRepository.save(customer1);bankRepository.save(bank1);
 
-        Purchase purchase1 = new PurchaseSinglePayment("V001","Store A","20-12345678-1",100.0f,100.0f,0.0f);
-        Purchase purchase2 = new PurchaseSinglePayment("V002","Store A","20-12345678-1",100.0f,100.0f,0.0f);
-        Purchase purchase3 = new PurchaseSinglePayment("V003","Store A","20-12345678-1",100.0f,100.0f,0.0f);
-        Purchase purchase4 = new PurchaseSinglePayment("V004","Store A","20-12345678-1",100.0f,100.0f,0.0f);
+        Purchase purchase1 = new PurchaseSinglePayment("V001","Store A","20-12345678-1",100.0f,90.0f,10.0f);
+        Purchase purchase2 = new PurchaseSinglePayment("V002","Store A","20-12345678-1",100.0f,80.0f,20.0f);
+        Purchase purchase3 = new PurchaseSinglePayment("V003","Store A","20-12345678-1",100.0f,70.0f,30.0f);
+        Purchase purchase4 = new PurchaseSinglePayment("V004","Store A","20-12345678-1",100.0f,60.0f,40.0f);
         purchaseRepository.saveAll(List.of(purchase1,purchase2,purchase3,purchase4));
         purchase1.setCard(card1);purchase2.setCard(card1);purchase3.setCard(card1);purchase4.setCard(card1);
         card1.addPurchase(purchase1);card1.addPurchase(purchase2);card1.addPurchase(purchase3);card1.addPurchase(purchase4);

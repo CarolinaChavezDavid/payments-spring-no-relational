@@ -46,7 +46,4 @@ public class PaymentSummary {
 
     @DBRef
     private Card card;
-
-
-
 }

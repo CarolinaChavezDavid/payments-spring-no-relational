@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,8 +20,10 @@ public class PurchaseMonthlyPayments extends Purchase {
 
     private int numberOfQuotas;
 
-    @DBRef
+    private String type;
+
     @JsonManagedReference
+    @Field("quotas")
     private Set<Quota> quotas = new HashSet<>();
 
     public PurchaseMonthlyPayments(String paymentVoucher, String store, String cuitStore, float amount, float finalAmount,
@@ -29,6 +31,7 @@ public class PurchaseMonthlyPayments extends Purchase {
         super(paymentVoucher, store, cuitStore, amount, finalAmount);
         this.interest = interest;
         this.numberOfQuotas = numberOfQuotas;
+        this.type = "PurchaseMonthlyPayments";
     }
 
     public void addQuota(Quota quota) {

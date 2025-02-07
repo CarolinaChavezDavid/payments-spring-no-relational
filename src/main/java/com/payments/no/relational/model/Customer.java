@@ -40,7 +40,6 @@ public class Customer {
     @NonNull
     private String telephone;
 
-//    @Builder.Default
     @NonNull
     private LocalDate entryDate;
 

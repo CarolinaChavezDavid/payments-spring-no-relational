@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDate;
-
 @Document(collection = "purchases")
 @Data
 @NoArgsConstructor
@@ -14,10 +12,12 @@ import java.time.LocalDate;
 public class PurchaseSinglePayment extends Purchase {
 
     private float storeDiscount;
+    private String type;
 
     public PurchaseSinglePayment(String paymentVoucher, String store, String cuitStore, float amount, float finalAmount,
                                  float storeDiscount){
         super(paymentVoucher, store, cuitStore, amount, finalAmount);
         this.storeDiscount = storeDiscount;
+        this.type = "PurchaseSinglePayment";
     }
 }

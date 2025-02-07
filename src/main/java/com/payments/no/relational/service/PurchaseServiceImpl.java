@@ -39,8 +39,8 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public PurchaseProjection getPurchaseById(String id) {
-        Optional<PurchaseProjection> purchaseOptional = purchaseRepository.findByIdWithSelectedFields(id);
+    public Purchase getPurchaseById(String id) {
+        Optional<Purchase> purchaseOptional = purchaseRepository.findById(id);
         if(purchaseOptional.isPresent()) {
             return purchaseOptional.get();
         } else {

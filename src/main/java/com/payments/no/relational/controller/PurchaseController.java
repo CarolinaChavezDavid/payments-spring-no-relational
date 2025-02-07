@@ -30,9 +30,9 @@ public class PurchaseController {
 
     // 5) Obtener la informacion de una compra, incluyendo el listado de cuotas si esta posee
     @GetMapping("/{id}")
-    public ResponseEntity<PurchaseProjection> getPurchaseById(@PathVariable String id) {
+    public ResponseEntity<Purchase> getPurchaseById(@PathVariable String id) {
         try {
-            PurchaseProjection purchase = purchaseService.getPurchaseById(id);
+            Purchase purchase = purchaseService.getPurchaseById(id);
             return ResponseEntity.ok(purchase);
         }catch (Exception e){
             logger.error("There was a error getting the purchase information", e);

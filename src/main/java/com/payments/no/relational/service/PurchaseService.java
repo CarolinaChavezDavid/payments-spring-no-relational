@@ -13,7 +13,7 @@ import java.util.Map;
 
 public interface PurchaseService {
     List<Purchase> getAllPurchases();
-    PurchaseProjection getPurchaseById(String id);
+    Purchase getPurchaseById(String id);
     Purchase createPurchase(Purchase purchase);
     PurchaseMonthlyPayments createPurchaseMonthlyPayments(MonthlyPaymentPurchaseDTO monthlyPurchase);
     PurchaseSinglePayment createPurchaseSinglePayment(SinglePurchaseDTO singlePurchase);

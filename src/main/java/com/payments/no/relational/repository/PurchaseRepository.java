@@ -1,21 +1,15 @@
 package com.payments.no.relational.repository;
 
-import com.payments.no.relational.dto.PurchaseProjection;
 import com.payments.no.relational.dto.QuotaDTO;
 import com.payments.no.relational.dto.TopStoreDTO;
 import com.payments.no.relational.model.*;
 import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 public interface PurchaseRepository extends MongoRepository<Purchase, String> {
     Purchase findByPaymentVoucher(String purchase_payment_voucher);
-
-    @Query(value="{'_id':?0}", fields = "{'paymentVoucher':1,'store':1,'cuitStore':1,'amount':1,'finalAmount':1,'purchaseDate':1}")
-    Optional<PurchaseProjection> findByIdWithSelectedFields(String id);
 
     List<Purchase> findByValidPromotion(Promotion promotion);
 
